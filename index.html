@@ -1,46 +1,50 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Indicadores PCP</title>
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#0f172a">
+<div style="max-width: 700px; margin: 30px auto; font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; background: #f0f4f8; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+  <h2 style="text-align:center; color: #082B4F;">Informações do Projeto</h2>
+  <p style="text-align:center; color: #005fa3; font-weight:bold;">Tudo funciona em serviços gratuitos e seus dados estão seguros!</p>
+  
+  <h3 style="color: #082B4F;">✅ Authentication (Login por Email/Senha)</h3>
+  <ul>
+    <li>Login por email/senha 100% gratuito</li>
+    <li>Sem custo por usuários</li>
+    <li>Sem limite de quantidade de contas</li>
+  </ul>
 
+  <h3 style="color: #082B4F;">✅ Cloud Firestore (Banco de Dados)</h3>
+  <p>O plano gratuito oferece:</p>
+  <ul>
+    <li>50.000 leituras por dia</li>
+    <li>20.000 gravações por dia</li>
+    <li>20.000 exclusões por dia</li>
+    <li>1 GiB de armazenamento total</li>
+  </ul>
+  <p>Limites técnicos:</p>
+  <ul>
+    <li>Até 50.000 documentos por coleção</li>
+    <li>Até 100 campos por documento</li>
+    <li>Sem limite de coleções</li>
+  </ul>
+  <p>Uso atual do projeto: apenas <strong>2 coleção e poucos documentos</strong>, muito abaixo do limite.</p>
 
-<style>
-  html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    background-color: #0f172a;
-    overflow: hidden;
-    font-family: Arial, sans-serif;
-  }
+  <h3 style="color: #082B4F;">✅ GitHub Pages (Hospedagem)</h3>
+  <ul>
+    <li>Hospedagem 100% gratuita</li>
+    <li>Certificado HTTPS gratuito</li>
+    <li>Tráfego gratuito</li>
+    <li>Sem limite de páginas</li>
+  </ul>
 
-  iframe {
-    border: none;
-    width: 100vw;
-    height: 100vh;
-  }
-</style>
+  <h3 style="color: #082B4F;">🔒 Segurança dos Dados</h3>
+  <p>Todos os dados sensíveis estão protegidos usando os recursos do Firebase, incluindo:</p>
+  <ul>
+    <li>Autenticação segura por email/senha</li>
+    <li>Regras de acesso no Firestore para que apenas usuários autorizados vejam/adicionem dados</li>
+    <li>Conexão criptografada (HTTPS) entre cliente e servidor</li>
+  </ul>
 
-</head>
-<body>
-
- 
-
-  <iframe 
-    src="https://app.powerbi.com/view?r=eyJrIjoiMjBiMDc4YmEtOTQ1Yi00MWM1LWE0ZGQtZDRlMmY3NGY1ZTFmIiwidCI6IjA3MWMyNjA2LWEwY2QtNGQ1YS1iNzA0LTg5MmNlMDBiMjhlNCJ9"
-    allowfullscreen>
-  </iframe>
-
-  <script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('sw.js');
-  }
-</script>
-
-
-</body>
-</html>
+  <h3 style="color: #082B4F;">📌 Resumo</h3>
+  <p>Todos os serviços utilizados no projeto são 100% gratuitos dentro do uso atual. Não haverá cobranças enquanto:</p>
+  <ul>
+    <li>Não for ativado o plano Blaze (pago)</li>
+    <li>Não usar serviços pagos como Functions, Hosting avançado ou Storage grande</li>
+  </ul>
+</div>
