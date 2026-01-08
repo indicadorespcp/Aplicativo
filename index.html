@@ -1,454 +1,291 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <title>Projeto Savings</title>
+  <meta charset="UTF-8" />
+  <title>Portfólio Análise de Dados | Adriano Moura</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f6f8;
-            padding: 20px;
-            margin: 0;
-        }
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-        h1 {
-            text-align: center;
-            background: #e6e6e6;
-            padding: 14px;
-            border-radius: 6px;
-            margin-bottom: 10px;
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #0f172a;
+      color: #e5e7eb;
+    }
 
-            /* Cabeçalho fixo */
-            position: sticky;
-            top: 0;
-            z-index: 999;
-        }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      padding: 30px 20px;
+      text-align: center;
+      background: linear-gradient(135deg, #2563eb, #1e40af);
+    }
 
-        h2 {
-            text-align: center;
-            margin-top: 40px;
-            color: #555;
-        }
+    header h1 {
+      font-size: 2.2rem;
+    }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+    .scroller {
+      width: 100%;
+      overflow: hidden;
+      margin-top: 10px;
+    }
 
-        /* GRID PADRÃO */
-        .layout {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 16px;
-            margin-top: 20px;
-        }
+    .scroller span {
+      display: inline-block;
+      white-space: nowrap;
+      padding-left: 100%;
+      color: #dbeafe;
+      animation: scrollText 15s linear infinite;
+    }
 
-        /* CENTRALIZA 3 CARDS */
-        .layout-center-3 {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            justify-content: center;
-            gap: 16px;
-            margin-top: 20px;
-        }
+    @keyframes scrollText {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+    }
 
-        /* IMAGEM */
-        .imagem-container {
-            grid-column: 1 / -1;
-            position: relative;
-            margin-bottom: 10px;
-        }
+    main {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 20px 120px;
+    }
 
-        .imagem-container img {
-            width: 100%;
-            border-radius: 6px;
-            display: block;
-        }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+    }
 
-        /* LINHA */
-        .linha {
-            position: absolute;
-            left: 50%;
-            bottom: -40px;
-            width: 2px;
-            height: 40px;
-            background: #bdbdbd;
-            transform: translateX(-50%);
-        }
+    /* ===== EFEITO DE SUBSTITUIÇÃO ===== */
+    .grupo-a {
+      transition: transform .4s ease, opacity .4s ease;
+    }
 
-        /* FRASE CHAMATIVA */
-        .caption {
-            text-align: center;
-            font-size: 13px;
-            color: #333;
-            margin-top: 6px;
-            background: #fff3b0; /* amarelo suave */
-            padding: 6px;
-            border-radius: 4px;
-        }
+    .grupo-a.recuado {
+      transform: translateY(-40px) scale(0.95);
+      opacity: 0;
+      pointer-events: none;
+    }
 
-        /* CARD */
-        .card {
-            background: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            min-width: 200px;
-        }
+    .grupo-b {
+      margin-top: 50px;
+    }
 
-        .card-header {
-            background: #e6e6e6;
-            padding: 12px;
-            text-align: center;
-            font-weight: bold;
-        }
+    @media (max-width: 900px) {
+      .grid { grid-template-columns: repeat(2, 1fr); }
+    }
 
-        .card-content {
-            padding: 16px;
-            flex-grow: 1;
-        }
+    @media (max-width: 600px) {
+      .grid { grid-template-columns: 1fr; }
+    }
 
-        .label {
-            font-weight: bold;
-        }
+    .card {
+      position: relative;
+      border-radius: 16px;
+      background: #020617;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+    }
 
-        p {
-            font-size: 14px;
-            margin: 6px 0;
-        }
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      border-radius: 18px;
+      background: linear-gradient(
+        270deg,
+        #2563eb,
+        #22d3ee,
+        #6366f1,
+        #2563eb
+      );
+      background-size: 400% 400%;
+      animation: borderAnim 6s linear infinite;
+      z-index: -1;
+    }
 
-        .card-footer {
-            background: #e6e6e6;
-            padding: 8px 12px;
-            font-size: 13px;
-        }
+    @keyframes borderAnim {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 400% 50%; }
+    }
 
-        /* RESPONSIVO */
-        @media (max-width: 1000px) {
-            .layout {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .layout-center-3 {
-                grid-template-columns: repeat(2, 1fr);
-                justify-content: center;
-            }
-            .linha {
-                display: none;
-            }
-        }
+    .card:hover {
+      transform: translateY(-6px);
+      transition: transform .3s ease;
+    }
 
-        @media (max-width: 600px) {
-            .layout {
-                grid-template-columns: 1fr;
-            }
-            .layout-center-3 {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    .image-box {
+      width: 100%;
+      height: 220px;
+      margin-bottom: 12px;
+      background: #020617;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .image-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .card h3 {
+      margin: 10px 0;
+      color: #93c5fd;
+    }
+
+    .card p {
+      font-size: .95rem;
+      line-height: 1.5;
+      margin-bottom: 15px;
+      color: #cbd5f5;
+    }
+
+    .card-footer {
+      margin-top: auto;
+      padding-top: 10px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .card-footer a {
+      width: 100%;
+      max-width: 220px;
+      text-decoration: none;
+      text-align: center;
+      padding: 10px;
+      border-radius: 8px;
+      background: #2563eb;
+      color: #fff;
+      font-weight: bold;
+      transition: background .3s;
+    }
+
+    .card-footer a:hover {
+      background: #1d4ed8;
+    }
+
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      padding: 15px 20px;
+      font-size: .9rem;
+      color: #94a3b8;
+      background: #020617;
+      z-index: 999;
+    }
+
+    #fullscreenBtn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 9999;
+      width: 44px;
+      height: 44px;
+      border: none;
+      border-radius: 10px;
+      background: #2563eb;
+      color: #fff;
+      font-size: 20px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,.4);
+      transition: background .3s, transform .2s;
+    }
+
+    #fullscreenBtn:hover {
+      background: #1d4ed8;
+      transform: scale(1.05);
+    }
+
+    html, body {
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    html::-webkit-scrollbar,
+    body::-webkit-scrollbar {
+      display: none;
+    }
+  </style>
 </head>
+
 <body>
 
-<h1>Projeto Savings</h1>
+<button id="fullscreenBtn">⛶</button>
 
+<header>
+  <img src="foto.jpg.jpg" style="width:140px;height:140px;border-radius:50%;border:4px solid #93c5fd;margin-bottom:15px;">
+  <h1>Portfólio Análise de Dados</h1>
+  <div class="scroller">
+    <span>Dashboards profissionais • DAX • Linguagem M • Power Query • Modelagem de Dados • ETL • Python • n8n • Análise de Dados •</span>
+  </div>
+</header>
 
-<!-- BALÃO DE OBSERVAÇÕES -->
-<div style="background:#fff3b0; border-radius:8px; padding:12px 16px; margin:10px auto; max-width:1200px; font-size:14px; color:#333; box-shadow:0 2px 4px rgba(0,0,0,0.1);">
-    <strong>Observação Importante:</strong>
-    <ul style="margin:6px 0 0 20px; padding:0;">
-        <li><b>Coluna Situação:</b> retorna dados apenas para as siglas <span style="background:#d3d3d3; padding:2px 4px; border-radius:2px;">PA e PE</span>.</li>
-        <li><b>Coluna 7 Itensped.Descrição do item:</b> não retorna dados para registros que contenham <span style="background:#d3d3d3; padding:2px 4px; border-radius:2px;">“Elevador Social”</span>.</li>
-        <li><b>Coluna Coordenador Regularizado:</b> retorna dados somente para <span style="background:#d3d3d3; padding:2px 4px; border-radius:2px;">Flavio Zambroti e Italo Vitorino</span>.</li>
-        <li><b>Conexões:</b> todas as conexões e análises foram realizadas utilizando como referência a coluna <span style="background:#d3d3d3; padding:2px 4px; border-radius:2px;">“Data de Inclusão PC”</span>.</li>
-        <li><b>Coluna "Diferença % Orçado vs Realizado":</b></li>
-        <ul style="margin:4px 0 0 20px; padding:0;">
-            <li><b>Como foi criada:</b>
-                <pre style="background:#d3d3d3; padding:4px; border-radius:4px; font-size:12px;">
-Diferença Percentual = 
-    se [Valor Total Orçado] <> nulo
-       e [Valor Total Orçado] <> 0
-       e [7 Itensped.Vlr total do item] <> nulo
-    então
-        ( [7 Itensped.Vlr total do item]
-          - [Valor Total Orçado] )
-        / [Valor Total Orçado]
-    senão
-        nulo
-                </pre>
-            </li>
-            <li><b>O que isso faz:</b>
-                <ul>
-                    <li>Subtrai o valor orçado do valor realizado</li>
-                    <li>Divide pelo valor orçado</li>
-                    <li>Retorna um percentual em formato decimal</li>
-                </ul>
-            </li>
-            <li><b>Filtro aplicado (±50%):</b>
-                <pre style="background:#d3d3d3; padding:4px; border-radius:4px; font-size:12px;">
-[#"Diferença % Orçado vs Realizado"] >= -0.5
-e [#"Diferença % Orçado vs Realizado"] <= 0.5
-                </pre>
-            </li>
-        </ul>
-    </ul>
-</div>
+<main>
+
+  <section class="grid grupo-a" id="grupoA"></section>
+
+  <section class="grid grupo-b" id="grupoB"></section>
+
+</main>
+
+<footer>
+  © 2026 • Adriano Moura Freitas • Power BI Specialist
+</footer>
+
+<script>
+const projetos = [
+  { titulo:"DRE Avançada", descricao:"Dashboard financeiro com DRE dinâmica, indicadores e análise gerencial.", imagem:"dre.png", link:"https://app.powerbi.com/view?r=eyJrIjoiYjAwNjZhOTAtMDFmYy00OGZmLTk2MTItNGE2MzIxMDMyMmQ0IiwidCI6ImIwZGU5NTg3LTZiN2ItNDRjZi04ZmU4LTdlZThhNTdhMTBiZCJ9"},
+  { titulo:"Comercial", descricao:"Análise Comercial, metas e resultados.", imagem:"comercial.png", link:"https://app.powerbi.com/view?r=eyJrIjoiMmE3MTk4ZmUtYmYyOS00NmRmLTg0MzgtYWU1OTY2NzU4YTI1IiwidCI6ImIwZGU5NTg3LTZiN2ItNDRjZi04ZmU4LTdlZThhNTdhMTBiZCJ9"},
+  { titulo:"Recursos Humanos", descricao:"Indicadores de RH, turnover e headcount.", imagem:"RH.png", link:"https://app.powerbi.com/view?r=eyJrIjoiNDAzZWMwNTItZDZkZi00ODc3LTg2OWItMGJjMGIzNDlkMGIzIiwidCI6ImIwZGU5NTg3LTZiN2ItNDRjZi04ZmU4LTdlZThhNTdhMTBiZCJ9"},
+  { titulo:"Pokémon", descricao:"Batalha de Poderes.", imagem:"pokemon.png", link:"https://app.powerbi.com/view?r=eyJrIjoiZmU2MGJkZTAtZTM3MC00MGViLWE5OWQtZjYyZTIyNWFmYjQ2IiwidCI6ImIwZGU5NTg3LTZiN2ItNDRjZi04ZmU4LTdlZThhNTdhMTBiZCJ9"},
+  { titulo:"Vendas", descricao:"Performance e Metas.", imagem:"vendas.png", link:"https://app.powerbi.com/view?r=eyJrIjoiMjkyY2RiYmItZGE3Ny00M2Y0LTkyNzEtMTZhODI3OTBhMGZjIiwidCI6ImIwZGU5NTg3LTZiN2ItNDRjZi04ZmU4LTdlZThhNTdhMTBiZCJ9"},
+  { titulo:"Análise de Combustivel", descricao:"Controle de Consumo Mês Atual x Mês Anterior.", imagem:"combustivel.png", link:"https://app.powerbi.com/view?r=eyJrIjoiYTQ2MjFlOTQtZGFkOS00OWJhLTlhZmItNTkxMTJlNGE0NjE2IiwidCI6ImIwZGU5NTg3LTZiN2ItNDRjZi04ZmU4LTdlZThhNTdhMTBiZCJ9"},
+  { titulo:"Análise Comercial", descricao:"Análise de Vendas Mês Atual x Mês Anterior.", imagem:"analisecomercial.png", link:"https://app.powerbi.com/view?r=eyJrIjoiY2VhY2VlMGUtYWJlNS00MTUwLTlhMWUtZDNkZmM2ZWMzZDhhIiwidCI6ImIwZGU5NTg3LTZiN2ItNDRjZi04ZmU4LTdlZThhNTdhMTBiZCJ9"},
+  { titulo:"Financeiro com DRE", descricao:"Painel financeiro focado em DRE, oferecendo visão clara.", imagem:"drefinanceiro.png", link:"https://app.powerbi.com/view?r=eyJrIjoiNmNmOGRmZDQtZGJiNy00MjU3LThlYjItMDY2NjYwNDIwZjllIiwidCI6ImIwZGU5NTg3LTZiN2ItNDRjZi04ZmU4LTdlZThhNTdhMTBiZCJ9"}
+];
 
 
 
+const grupoA = document.getElementById("grupoA");
+const grupoB = document.getElementById("grupoB");
+
+projetos.slice(0,3).forEach(p => criarCard(p, grupoA));
+projetos.slice(3).forEach(p => criarCard(p, grupoB));
+
+function criarCard(p, container){
+  const card = document.createElement("div");
+  card.className = "card";
+  card.innerHTML = `
+    <div class="image-box"><img src="${p.imagem}"></div>
+    <h3>${p.titulo}</h3>
+    <p>${p.descricao}</p>
+    <div class="card-footer"><a href="${p.link}" target="_blank">Abrir Dashboard</a></div>
+  `;
+  container.appendChild(card);
+}
+
+const observer = new IntersectionObserver(
+  ([e]) => document.querySelector(".grupo-a")
+    .classList.toggle("recuado", e.isIntersecting),
+  { rootMargin: "-120px 0px -120px 0px", threshold: 0.1 }
+);
+
+observer.observe(grupoB);
 
 
-<!-- ===================== -->
-<!-- INDICADOR 1 - CARDS -->
-<!-- ===================== -->
-
-<h2>Cards</h2>
-
-<div class="container layout">
-
-    <div class="imagem-container">
-        <img src="cartoes.pnj.png" alt="Cards Power BI">
-        <div class="linha"></div>
-        <div class="caption">Dica: Observe todos os cards juntos para ter visão completa do indicador.</div>
-    </div>
-
-    <div class="card">
-        <div class="card-header">Valor Realizado</div>
-        <div class="card-content">
-            <p class="label">Como foi calculado:</p>
-            <p>Soma da coluna <b>7 Itensped.Vlr total do item</b></p>
-        </div>
-        <div class="card-footer">
-            Base de dados: <b>2 ItensSoli</b>
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="card-header">Saving Realizado em Dinheiro</div>
-        <div class="card-content">
-            <p class="label">Como foi calculado:</p>
-            <p>Valor Orçado Corrigido INCC menos Valor Realizado</p>
-        </div>
-        <div class="card-footer">
-            Base de dados: <b>2 ItensSoli</b>
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="card-header">Saving %</div>
-        <div class="card-content">
-            <p class="label">Como foi calculado:</p>
-            <p>
-                (Valor Orçado Corrigido − Valor Realizado) ÷ Valor Orçado Corrigido.
-                O cálculo só ocorre quando o valor orçado é maior que zero.
-            </p>
-        </div>
-        <div class="card-footer">
-            Base de dados: <b>2 ItensSoli</b>
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="card-header">Quantidade de Pedidos</div>
-        <div class="card-content">
-            <p class="label">Como foi calculado:</p>
-            <p>Contagem de registros (linhas)</p>
-        </div>
-        <div class="card-footer">
-            Base de dados: <b>6 Pedidos</b>
-        </div>
-    </div>
-
-</div>
-
-<!-- ===================== -->
-<!-- INDICADOR 2 - GRÁFICO -->
-<!-- ===================== -->
-
-<h2>REALIZADO x ORÇADO - (%) SAVINGS</h2>
-
-<div class="container layout">
-
-    <div class="imagem-container">
-        <img src="grafico.pnj.png" alt="Gráfico Realizado x Orçado">
-        <div class="linha"></div>
-        <div class="caption">
-            Para esse gráfico, uma boa prática de leitura é manter visíveis as duas colunas e ocultar a linha,
-            mantendo apenas os rótulos de forma organizada com suas devidas legendas para evitar poluição visual.
-        </div>
-    </div>
-
-</div>
-
-<!-- ===================== -->
-<!-- 3 CARDS CENTRALIZADOS -->
-<!-- ===================== -->
-
-<div class="container layout-center-3">
-
-    <div class="card">
-        <div class="card-header">Valor Realizado</div>
-        <div class="card-content">
-            <p class="label">Como foi calculado:</p>
-            <p>Soma da coluna <b>7 Itensped.Vlr total do item</b></p>
-        </div>
-        <div class="card-footer">
-            Base de dados: <b>2 ItensSoli</b>
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="card-header">Valor Orçado Corrigido</div>
-        <div class="card-content">
-            <p class="label">Como foi calculado:</p>
-            <p>Valor orçado ajustado pelo índice INCC vigente</p>
-        </div>
-        <div class="card-footer">
-            Base de dados: <b>2 ItensSoli</b>
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="card-header">Savings (%)</div>
-        <div class="card-content">
-            <p class="label">Como foi calculado:</p>
-            <p>
-                (Valor Orçado Corrigido − Valor Realizado) ÷ Valor Orçado Corrigido.
-                O cálculo só ocorre quando o valor orçado é maior que zero.
-            </p>
-        </div>
-        <div class="card-footer">
-            Base de dados: <b>2 ItensSoli</b>
-        </div>
-    </div>
-
-</div>
-
-<!-- ===================== -->
-<!-- INDICADOR 3 - SAVING REALIZADO EM DINHEIRO POR MÊS -->
-<!-- ===================== -->
-
-<h2>SAVING REALIZADO EM DINHEIRO POR MÊS</h2>
-
-<div class="container layout">
-
-    <div class="imagem-container">
-        <img src="emdinheiro.pnj.png" alt="Saving Realizado em Dinheiro por Mês">
-        <div class="linha"></div>
-        <div class="caption">
-            Dica: Analisar mês a mês permite identificar padrões e oportunidades de melhoria nos savings.
-        </div>
-    </div>
-
-</div>
-
-<!-- ===================== -->
-<!-- CARD CENTRALIZADO ÚNICO -->
-<!-- ===================== -->
-
-<div class="container" style="display:flex; justify-content:center; margin-top:20px;">
-
-    <div class="card" style="width: 250px;">
-        <div class="card-header">Saving Realizado em Dinheiro</div>
-        <div class="card-content">
-            <p class="label">Como foi calculado:</p>
-            <p>Valor Orçado Corrigido INCC menos Valor Realizado</p>
-        </div>
-        <div class="card-footer">
-            Base de dados: <b>2 ItensSoli</b>
-        </div>
-    </div>
-
-</div>
-
-<!-- ===================== -->
-<!-- TRATAMENTO DE DADOS -->
-<!-- ===================== -->
-
-<h2>Tratamento de Dados</h2>
-
-<div class="container layout">
-
-    <div class="imagem-container" style="text-align:center;">
-
-        <div style="display:inline-block; width:49%; position:relative; vertical-align:top; margin-right:2%;">
-            <div style="position:absolute; top:0; left:50%; transform:translateX(-50%); font-weight:bold; background:#fff3b0; padding:2px 6px; border-radius:4px; z-index:10;">
-                Antes
-            </div>
-            <img src="antes.pnj.png" alt="Antes do Tratamento de Dados" style="display:inline-block; width:100%;">
-        </div>
-
-        <div style="display:inline-block; width:49%; position:relative; vertical-align:top;">
-            <div style="position:absolute; top:0; left:50%; transform:translateX(-50%); font-weight:bold; background:#fff3b0; padding:2px 6px; border-radius:4px; z-index:10;">
-                Depois
-            </div>
-            <img src="depois.pnj.png" alt="Depois do Tratamento de Dados" style="display:inline-block; width:100%;">
-        </div>
-
-        <div class="linha"></div>
-
-        <div class="caption">
-            O tratamento de dados foi realizado totalmente na linguagem M, garantindo segurança na limpeza, deixando o relatório mais leve e organizado.
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- ===================== -->
-<!-- DEPOIS DO TRATAMENTO -->
-<!-- ===================== -->
-
-<h2>Depois do tratamento de dados</h2>
-
-<div class="container layout">
-
-    <div class="imagem-container" style="text-align:center;">
-
-        <div style="display:inline-block; width:45%; max-width:300px; margin-right:2%; position:relative; vertical-align:top;">
-            <div style="position:absolute; top:0; left:50%; transform:translateX(-50%); font-weight:bold; background:#fff3b0; padding:2px 6px; border-radius:4px; z-index:10;">Antes</div>
-            <img src="etapasantes.pnj.png" alt="Etapas Antes" style="width:100%; display:block; border-radius:6px;">
-        </div>
-
-        <div style="display:inline-block; width:45%; max-width:300px; position:relative; vertical-align:top;">
-            <div style="position:absolute; top:0; left:50%; transform:translateX(-50%); font-weight:bold; background:#fff3b0; padding:2px 6px; border-radius:4px; z-index:10;">Depois</div>
-            <img src="etapasdepois.pnj.png" alt="Etapas Depois" style="width:100%; display:block; border-radius:6px;">
-        </div>
-
-        <div class="linha"></div>
-
-        <div class="caption" style="margin-top:10px;">
-            Esse tratamento melhora o desempenho e garante melhor suporte ao processamento de grandes volumes de dados, proporcionando maior durabilidade e escalabilidade para grandes projetos.
-        </div>
-
-    </div>
-
-</div>
-
+document.getElementById("fullscreenBtn").onclick = () => {
+  document.fullscreenElement
+    ? document.exitFullscreen()
+    : document.documentElement.requestFullscreen();
+};
+</script>
 
 </body>
-
-<!-- RODAPÉ FIXO -->
-<div style="
-    position: sticky;
-    bottom: 0;
-    width: 100%;
-    background:#e6e6e6;
-    padding:12px 16px;
-    text-align:center;
-    font-size:14px;
-    color:#333;
-    box-shadow: 0 -2px 6px rgba(0,0,0,0.1);
-    z-index:999;
-">
-    Analisei todos os bancos de dados disponíveis. O volume de informações é significativo e requer tratamento seguro, 
-    caracterizando um projeto de grande porte, com previsão de conclusão de 5 a 6 meses. 
-    <br>
-    <strong>Fonte:</strong> Power BI Analytics
-</div>
-
-
 </html>
