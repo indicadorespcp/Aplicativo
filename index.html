@@ -1,50 +1,454 @@
-<div style="max-width: 700px; margin: 30px auto; font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; background: #f0f4f8; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
-  <h2 style="text-align:center; color: #082B4F;">Informações do Projeto</h2>
-  <p style="text-align:center; color: #005fa3; font-weight:bold;">Tudo funciona em serviços gratuitos e seus dados estão seguros!</p>
-  
-  <h3 style="color: #082B4F;">✅ Authentication (Login por Email/Senha)</h3>
-  <ul>
-    <li>Login por email/senha 100% gratuito</li>
-    <li>Sem custo por usuários</li>
-    <li>Sem limite de quantidade de contas</li>
-  </ul>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Projeto Savings</title>
 
-  <h3 style="color: #082B4F;">✅ Cloud Firestore (Banco de Dados)</h3>
-  <p>O plano gratuito oferece:</p>
-  <ul>
-    <li>50.000 leituras por dia</li>
-    <li>20.000 gravações por dia</li>
-    <li>20.000 exclusões por dia</li>
-    <li>1 GiB de armazenamento total</li>
-  </ul>
-  <p>Limites técnicos:</p>
-  <ul>
-    <li>Até 50.000 documentos por coleção</li>
-    <li>Até 100 campos por documento</li>
-    <li>Sem limite de coleções</li>
-  </ul>
-  <p>Uso atual do projeto: apenas <strong>2 coleção e poucos documentos</strong>, muito abaixo do limite.</p>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            padding: 20px;
+            margin: 0;
+        }
 
-  <h3 style="color: #082B4F;">✅ GitHub Pages (Hospedagem)</h3>
-  <ul>
-    <li>Hospedagem 100% gratuita</li>
-    <li>Certificado HTTPS gratuito</li>
-    <li>Tráfego gratuito</li>
-    <li>Sem limite de páginas</li>
-  </ul>
+        h1 {
+            text-align: center;
+            background: #e6e6e6;
+            padding: 14px;
+            border-radius: 6px;
+            margin-bottom: 10px;
 
-  <h3 style="color: #082B4F;">🔒 Segurança dos Dados</h3>
-  <p>Todos os dados sensíveis estão protegidos usando os recursos do Firebase, incluindo:</p>
-  <ul>
-    <li>Autenticação segura por email/senha</li>
-    <li>Regras de acesso no Firestore para que apenas usuários autorizados vejam/adicionem dados</li>
-    <li>Conexão criptografada (HTTPS) entre cliente e servidor</li>
-  </ul>
+            /* Cabeçalho fixo */
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
 
-  <h3 style="color: #082B4F;">📌 Resumo</h3>
-  <p>Todos os serviços utilizados no projeto são 100% gratuitos dentro do uso atual. Não haverá cobranças enquanto:</p>
-  <ul>
-    <li>Não for ativado o plano Blaze (pago)</li>
-    <li>Não usar serviços pagos como Functions, Hosting avançado ou Storage grande</li>
-  </ul>
+        h2 {
+            text-align: center;
+            margin-top: 40px;
+            color: #555;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* GRID PADRÃO */
+        .layout {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        /* CENTRALIZA 3 CARDS */
+        .layout-center-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            justify-content: center;
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        /* IMAGEM */
+        .imagem-container {
+            grid-column: 1 / -1;
+            position: relative;
+            margin-bottom: 10px;
+        }
+
+        .imagem-container img {
+            width: 100%;
+            border-radius: 6px;
+            display: block;
+        }
+
+        /* LINHA */
+        .linha {
+            position: absolute;
+            left: 50%;
+            bottom: -40px;
+            width: 2px;
+            height: 40px;
+            background: #bdbdbd;
+            transform: translateX(-50%);
+        }
+
+        /* FRASE CHAMATIVA */
+        .caption {
+            text-align: center;
+            font-size: 13px;
+            color: #333;
+            margin-top: 6px;
+            background: #fff3b0; /* amarelo suave */
+            padding: 6px;
+            border-radius: 4px;
+        }
+
+        /* CARD */
+        .card {
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            min-width: 200px;
+        }
+
+        .card-header {
+            background: #e6e6e6;
+            padding: 12px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .card-content {
+            padding: 16px;
+            flex-grow: 1;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+
+        p {
+            font-size: 14px;
+            margin: 6px 0;
+        }
+
+        .card-footer {
+            background: #e6e6e6;
+            padding: 8px 12px;
+            font-size: 13px;
+        }
+
+        /* RESPONSIVO */
+        @media (max-width: 1000px) {
+            .layout {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .layout-center-3 {
+                grid-template-columns: repeat(2, 1fr);
+                justify-content: center;
+            }
+            .linha {
+                display: none;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .layout {
+                grid-template-columns: 1fr;
+            }
+            .layout-center-3 {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<h1>Projeto Savings</h1>
+
+
+<!-- BALÃO DE OBSERVAÇÕES -->
+<div style="background:#fff3b0; border-radius:8px; padding:12px 16px; margin:10px auto; max-width:1200px; font-size:14px; color:#333; box-shadow:0 2px 4px rgba(0,0,0,0.1);">
+    <strong>Observação Importante:</strong>
+    <ul style="margin:6px 0 0 20px; padding:0;">
+        <li><b>Coluna Situação:</b> retorna dados apenas para as siglas <span style="background:#d3d3d3; padding:2px 4px; border-radius:2px;">PA e PE</span>.</li>
+        <li><b>Coluna 7 Itensped.Descrição do item:</b> não retorna dados para registros que contenham <span style="background:#d3d3d3; padding:2px 4px; border-radius:2px;">“Elevador Social”</span>.</li>
+        <li><b>Coluna Coordenador Regularizado:</b> retorna dados somente para <span style="background:#d3d3d3; padding:2px 4px; border-radius:2px;">Flavio Zambroti e Italo Vitorino</span>.</li>
+        <li><b>Conexões:</b> todas as conexões e análises foram realizadas utilizando como referência a coluna <span style="background:#d3d3d3; padding:2px 4px; border-radius:2px;">“Data de Inclusão PC”</span>.</li>
+        <li><b>Coluna "Diferença % Orçado vs Realizado":</b></li>
+        <ul style="margin:4px 0 0 20px; padding:0;">
+            <li><b>Como foi criada:</b>
+                <pre style="background:#d3d3d3; padding:4px; border-radius:4px; font-size:12px;">
+Diferença Percentual = 
+    se [Valor Total Orçado] <> nulo
+       e [Valor Total Orçado] <> 0
+       e [7 Itensped.Vlr total do item] <> nulo
+    então
+        ( [7 Itensped.Vlr total do item]
+          - [Valor Total Orçado] )
+        / [Valor Total Orçado]
+    senão
+        nulo
+                </pre>
+            </li>
+            <li><b>O que isso faz:</b>
+                <ul>
+                    <li>Subtrai o valor orçado do valor realizado</li>
+                    <li>Divide pelo valor orçado</li>
+                    <li>Retorna um percentual em formato decimal</li>
+                </ul>
+            </li>
+            <li><b>Filtro aplicado (±50%):</b>
+                <pre style="background:#d3d3d3; padding:4px; border-radius:4px; font-size:12px;">
+[#"Diferença % Orçado vs Realizado"] >= -0.5
+e [#"Diferença % Orçado vs Realizado"] <= 0.5
+                </pre>
+            </li>
+        </ul>
+    </ul>
 </div>
+
+
+
+
+
+<!-- ===================== -->
+<!-- INDICADOR 1 - CARDS -->
+<!-- ===================== -->
+
+<h2>Cards</h2>
+
+<div class="container layout">
+
+    <div class="imagem-container">
+        <img src="cartoes.pnj.png" alt="Cards Power BI">
+        <div class="linha"></div>
+        <div class="caption">Dica: Observe todos os cards juntos para ter visão completa do indicador.</div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">Valor Realizado</div>
+        <div class="card-content">
+            <p class="label">Como foi calculado:</p>
+            <p>Soma da coluna <b>7 Itensped.Vlr total do item</b></p>
+        </div>
+        <div class="card-footer">
+            Base de dados: <b>2 ItensSoli</b>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">Saving Realizado em Dinheiro</div>
+        <div class="card-content">
+            <p class="label">Como foi calculado:</p>
+            <p>Valor Orçado Corrigido INCC menos Valor Realizado</p>
+        </div>
+        <div class="card-footer">
+            Base de dados: <b>2 ItensSoli</b>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">Saving %</div>
+        <div class="card-content">
+            <p class="label">Como foi calculado:</p>
+            <p>
+                (Valor Orçado Corrigido − Valor Realizado) ÷ Valor Orçado Corrigido.
+                O cálculo só ocorre quando o valor orçado é maior que zero.
+            </p>
+        </div>
+        <div class="card-footer">
+            Base de dados: <b>2 ItensSoli</b>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">Quantidade de Pedidos</div>
+        <div class="card-content">
+            <p class="label">Como foi calculado:</p>
+            <p>Contagem de registros (linhas)</p>
+        </div>
+        <div class="card-footer">
+            Base de dados: <b>6 Pedidos</b>
+        </div>
+    </div>
+
+</div>
+
+<!-- ===================== -->
+<!-- INDICADOR 2 - GRÁFICO -->
+<!-- ===================== -->
+
+<h2>REALIZADO x ORÇADO - (%) SAVINGS</h2>
+
+<div class="container layout">
+
+    <div class="imagem-container">
+        <img src="grafico.pnj.png" alt="Gráfico Realizado x Orçado">
+        <div class="linha"></div>
+        <div class="caption">
+            Para esse gráfico, uma boa prática de leitura é manter visíveis as duas colunas e ocultar a linha,
+            mantendo apenas os rótulos de forma organizada com suas devidas legendas para evitar poluição visual.
+        </div>
+    </div>
+
+</div>
+
+<!-- ===================== -->
+<!-- 3 CARDS CENTRALIZADOS -->
+<!-- ===================== -->
+
+<div class="container layout-center-3">
+
+    <div class="card">
+        <div class="card-header">Valor Realizado</div>
+        <div class="card-content">
+            <p class="label">Como foi calculado:</p>
+            <p>Soma da coluna <b>7 Itensped.Vlr total do item</b></p>
+        </div>
+        <div class="card-footer">
+            Base de dados: <b>2 ItensSoli</b>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">Valor Orçado Corrigido</div>
+        <div class="card-content">
+            <p class="label">Como foi calculado:</p>
+            <p>Valor orçado ajustado pelo índice INCC vigente</p>
+        </div>
+        <div class="card-footer">
+            Base de dados: <b>2 ItensSoli</b>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">Savings (%)</div>
+        <div class="card-content">
+            <p class="label">Como foi calculado:</p>
+            <p>
+                (Valor Orçado Corrigido − Valor Realizado) ÷ Valor Orçado Corrigido.
+                O cálculo só ocorre quando o valor orçado é maior que zero.
+            </p>
+        </div>
+        <div class="card-footer">
+            Base de dados: <b>2 ItensSoli</b>
+        </div>
+    </div>
+
+</div>
+
+<!-- ===================== -->
+<!-- INDICADOR 3 - SAVING REALIZADO EM DINHEIRO POR MÊS -->
+<!-- ===================== -->
+
+<h2>SAVING REALIZADO EM DINHEIRO POR MÊS</h2>
+
+<div class="container layout">
+
+    <div class="imagem-container">
+        <img src="emdinheiro.pnj.png" alt="Saving Realizado em Dinheiro por Mês">
+        <div class="linha"></div>
+        <div class="caption">
+            Dica: Analisar mês a mês permite identificar padrões e oportunidades de melhoria nos savings.
+        </div>
+    </div>
+
+</div>
+
+<!-- ===================== -->
+<!-- CARD CENTRALIZADO ÚNICO -->
+<!-- ===================== -->
+
+<div class="container" style="display:flex; justify-content:center; margin-top:20px;">
+
+    <div class="card" style="width: 250px;">
+        <div class="card-header">Saving Realizado em Dinheiro</div>
+        <div class="card-content">
+            <p class="label">Como foi calculado:</p>
+            <p>Valor Orçado Corrigido INCC menos Valor Realizado</p>
+        </div>
+        <div class="card-footer">
+            Base de dados: <b>2 ItensSoli</b>
+        </div>
+    </div>
+
+</div>
+
+<!-- ===================== -->
+<!-- TRATAMENTO DE DADOS -->
+<!-- ===================== -->
+
+<h2>Tratamento de Dados</h2>
+
+<div class="container layout">
+
+    <div class="imagem-container" style="text-align:center;">
+
+        <div style="display:inline-block; width:49%; position:relative; vertical-align:top; margin-right:2%;">
+            <div style="position:absolute; top:0; left:50%; transform:translateX(-50%); font-weight:bold; background:#fff3b0; padding:2px 6px; border-radius:4px; z-index:10;">
+                Antes
+            </div>
+            <img src="antes.pnj.png" alt="Antes do Tratamento de Dados" style="display:inline-block; width:100%;">
+        </div>
+
+        <div style="display:inline-block; width:49%; position:relative; vertical-align:top;">
+            <div style="position:absolute; top:0; left:50%; transform:translateX(-50%); font-weight:bold; background:#fff3b0; padding:2px 6px; border-radius:4px; z-index:10;">
+                Depois
+            </div>
+            <img src="depois.pnj.png" alt="Depois do Tratamento de Dados" style="display:inline-block; width:100%;">
+        </div>
+
+        <div class="linha"></div>
+
+        <div class="caption">
+            O tratamento de dados foi realizado totalmente na linguagem M, garantindo segurança na limpeza, deixando o relatório mais leve e organizado.
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ===================== -->
+<!-- DEPOIS DO TRATAMENTO -->
+<!-- ===================== -->
+
+<h2>Depois do tratamento de dados</h2>
+
+<div class="container layout">
+
+    <div class="imagem-container" style="text-align:center;">
+
+        <div style="display:inline-block; width:45%; max-width:300px; margin-right:2%; position:relative; vertical-align:top;">
+            <div style="position:absolute; top:0; left:50%; transform:translateX(-50%); font-weight:bold; background:#fff3b0; padding:2px 6px; border-radius:4px; z-index:10;">Antes</div>
+            <img src="etapasantes.pnj.png" alt="Etapas Antes" style="width:100%; display:block; border-radius:6px;">
+        </div>
+
+        <div style="display:inline-block; width:45%; max-width:300px; position:relative; vertical-align:top;">
+            <div style="position:absolute; top:0; left:50%; transform:translateX(-50%); font-weight:bold; background:#fff3b0; padding:2px 6px; border-radius:4px; z-index:10;">Depois</div>
+            <img src="etapasdepois.pnj.png" alt="Etapas Depois" style="width:100%; display:block; border-radius:6px;">
+        </div>
+
+        <div class="linha"></div>
+
+        <div class="caption" style="margin-top:10px;">
+            Esse tratamento melhora o desempenho e garante melhor suporte ao processamento de grandes volumes de dados, proporcionando maior durabilidade e escalabilidade para grandes projetos.
+        </div>
+
+    </div>
+
+</div>
+
+
+</body>
+
+<!-- RODAPÉ FIXO -->
+<div style="
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+    background:#e6e6e6;
+    padding:12px 16px;
+    text-align:center;
+    font-size:14px;
+    color:#333;
+    box-shadow: 0 -2px 6px rgba(0,0,0,0.1);
+    z-index:999;
+">
+    Analisei todos os bancos de dados disponíveis. O volume de informações é significativo e requer tratamento seguro, 
+    caracterizando um projeto de grande porte, com previsão de conclusão de 5 a 6 meses. 
+    <br>
+    <strong>Fonte:</strong> Power BI Analytics
+</div>
+
+
+</html>
